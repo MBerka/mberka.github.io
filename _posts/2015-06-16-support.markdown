@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "ShowThisImage"
+date:   2015-06-16 04:27:00 +0100
+categories: chrome-content-settings showthisimage
+---
+# FAQ's
+## How does it work?
+Clicking the ShowThisImage menu option on the image causes the extension to:
+
+-  turn images on for that page's domain,
+-  find the image in the source code and reload it,
+-  remove the CSS classes that made it visible before,
+--    if it is a background image, remove the image box,
+-  wait several seconds so the image loads, and
+-  restore the domain's image setting to normal.
+
+## Why does the Show This Image option not appear?
+The image may:
+
+-  be an advanced non-image element,
+-  be on a page where the extension is disabled (Chrome web store), non-http/https url's.
+
+# Known issues
+
+-  Image visualization and/or loading may not work as intended for images inserted using special techniques such as redirection to a page upon viewing of the image file, as in the case of the Creative Commons button. Advertisements and CAPTCHA's maybe affected.
+-  If an image is used in several places on the page, loading it in any of them may cause it to be displayed in all of them, but the other images may still have the styling used for invisible images.
