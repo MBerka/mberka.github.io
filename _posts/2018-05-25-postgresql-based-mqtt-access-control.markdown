@@ -2,7 +2,7 @@
 layout: post
 title:  "PostgreSQL-based MQTT access control"
 date:   2018-05-25 15:15:35 -0600
-categories: mqtt mosquitto postgresql authentication cloud
+categories: web 
 ---
 <a href="http://mqtt.org">MQTT</a>'s lightweight, pub-sub model is a natural choice for IoT systems, but takes some fiddling to secure. There is less documentation than for popular protocols like HTTP, especially for specific brokers (<a href="http://mosquitto.org">Mosquitto</a> vs Apache, anyone?). Having already chosen Mosquitto due to its broad hardware support, I needed scalable per-device authentication beyond the built-in <a href="www.steves-internet-guide.com/topic-restriction-mosquitto-configuration/">Access Control List</a>, which worked fine in testing, but required a service restart to update access. A PostgreSQL installation was already configured, and was the natural place for device-related data storage.
 
@@ -59,6 +59,8 @@ The last three are default PostgreSQL calls (on principle, I recommend using you
 * userquery: mandatory query returning a 1x1 result with the PBKDF2 password hash for a given user
 * superquery: query for superusers who are exempt from access control restrictions, returning 1x1 entry with 0/1 indicating whether th user is a superuser (useful since I needed a global user to read from all the channels)
 * aclquery: query returning a single column with any number of rows, each containing an [MQTT topic string][mqtt-topics].
+
+It was time to adjust the databse.
 
 [auth-plug]: https://github.com/jpmens/mosquitto-auth-plug/ 
 [postgres-params]: https://github.com/jpmens/mosquitto-auth-plug#postgresql
