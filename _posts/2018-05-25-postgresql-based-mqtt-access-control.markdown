@@ -8,7 +8,9 @@ categories: web
 
 [mosquitto-auth-plug][auth-plug] to the rescue. This Mosquitto plugin extends authentication to include a variety of databses. As can be seen from a [three-year-old guide for Mosquitto 1.3.5 and MySQL](http://my-classes.com/2015/02/05/acl-mosquitto-mqtt-broker-auth-plugin/), the setup is slightly involved. This post builds on that for PostgreSQL (fully supported by the plugin) and Mosquitto 1.5. It assumes that the database, git, and compilation libraries (make, gcc, g++) are already installed. Debian-style commands are used.
 
-Since Mosquitto was already installed, it was necessary to backup the configurations from /etc/mosquitto and uninstall. The initial steps to build the fresh Mosquitto consisted of:
+# Initial installation and build
+
+Since the plugin must be built with a path to the source, I had to uninstall Mosquitto first (you may want to back up any complex configurations from /etc/mosquitto first, and fully purge the installation to avoid problems on re-install). The initial steps to build the fresh Mosquitto consisted of:
 
 {% highlight bash %}
 sudo apt-get install libc-ares-dev libssl-dev uuid uuid-dev
@@ -44,6 +46,9 @@ sudo apt-get install libpq-dev #The server was already installed and working, an
 make
 sudo mv auth-plug.so /etc/mosquitto/ #As in the guide
 {% endhighlight %}
+
+# Configuration and database
+
 It was now time to configure Mosquitto. My prior mosquitto.conf had some persistence and log settings, so I left those in place instead o overwriting everything with the example. I appended a modified version of the guide's text, fortunately [shorter for PostgreSQL][postgres-params]:
 {% highlight plaintext %}
 auth_plugin /etc/mosquitto/auth-plug.so
@@ -69,7 +74,7 @@ Re-enter same password:
 PBKDF2$sha256$901$gjOcwLF+xs92U5Mf$wHdnuPJTAdhTsy7bMOco+9vtO2W86K8h
 sudo psql -U [dbuser]
 \connect [database]
-#'You are now connect to database "[database]" as user "[dbuser]"'
+#'You are now connected to database "[database]" as user "[dbuser]"'
 {% endhighlight %}
 {% highlight sql %}
 CREATE TABLE account (
@@ -92,7 +97,7 @@ id serial PRIMARY KEY,
 username varchar(20) NOT NULL,
 topic varchar(40) NOT NULL,
 rw smallint NOT NULL DEFAULT 1,
-CONSTRAINT rw CHECK (rw = 1 OR rw = 2 OR rw = 3)
+CONSTRAINT rw CHECK (rw >= 1 AND rw <= 4)
 );
 -- CREATE TABLE
 INSERT INTO acls(username, topic, rw)
@@ -103,16 +108,17 @@ SELECT * FROM acls;
 -- Should show new user
 {% endhighlight %}
 
-Now to test it all together:
+# Testing
+
 {% highlight bash %}
 cd /usr/local/sbin
 ./mosquitto -c /etc/mosquitto/mosquitto.conf
 {% endhighlight %}
-After a few false starts (failing silently with the -c argument, yet running normally without it), the logs revealed the error [described by Rex Xia](http://rexpie.github.io/2015/08/25/mosquitto-troubleshooting.html), with the same solution:
+After a few false starts (failing silently with the -c argument, yet running normally without it), the logs revealed the [error described by Rex Xia](http://rexpie.github.io/2015/08/25/mosquitto-troubleshooting.html), with the same solution:
 {% highlight bash %}
 sudo ln -s /usr/local/lib/libmosquitto.so.1 /usr/lib/libmosquitto.so.1
 {% endhighlight %}
-From here, Mosquitto and the plugin ran perfectly. Note that any flaw in the PostgreSQL authentication for the user configured in mosquitto.conf, or in that user's access to the newly created tables, reveals itself here, bringing checks to a premature halt.
+From here, Mosquitto and the plugin ran perfectly. Note that any flaw in the PostgreSQL authentication for the user configured in mosquitto.conf, or in that user's access to the newly created tables, reveals itself here, bringing authentication/authorization checks to a premature halt.
 
 Success looked like
 {% highlight plaintext %}
@@ -132,7 +138,13 @@ when publishing to testuser/test. Oddly enough, though an rw value of 3 should g
 {% highlight plaintext %}
 1527401125: |-- USERNAME: testuser, TOPIC: testuser/#, acc: 4
 {% endhighlight %}
-I set the a permission of 4 and was able to both publish a message and receive it with the same connection. Attempting to subscribe to any unpermitted topic still caused the connection to terminate.
+I set a permission of 4 and was able to both publish a message and receive it with the same connection. Attempting to subscribe to any unpermitted topic still caused the connection to terminate.
+
+# Next steps
+
+1. Consider the schema - does the default table structure make sense? If you will only ever need one topic string per user, you may wish to combine the account and acl tables.
+2. Personalize the schema - rename tables/columns to make your database a bit less obvious.
+3. Set up tools for managing the new permission tables. For me, the main stumbling block was reproducing the np script's encryption in [Node-RED](https://nodered.org/).
 
 [auth-plug]: https://github.com/jpmens/mosquitto-auth-plug/
 [postgres-params]: https://github.com/jpmens/mosquitto-auth-plug#postgresql
