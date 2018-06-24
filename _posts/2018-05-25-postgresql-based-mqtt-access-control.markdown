@@ -36,6 +36,9 @@ BACKEND_POSTGRES ?= yes
 # ...
 # Specify the path to the Mosquitto sources here
 MOSQUITTO_SRC = [path]/mosquitto-1.5
+# And since I wanted to have websockets (allow browser clients),
+# this was the moment to set:
+WITH_WEBSOCKETS:=yes
 {% endhighlight %}
 ([path] will vary depending on the earlier tar)
 

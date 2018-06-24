@@ -1,0 +1,7 @@
+---
+layout: post
+title:  "IO Scope"
+date:   2017-05-21 16:01:00 -0600
+categories: software
+---
+The attached files provide a minimum-hardware approach to in-out testing. An Arduino (code configured for SparkFun's Pro Micro) uses averaged pulse-width modulation to produce a waveform signal fed to the input of a circuit. The signal appearing at the output is sampled and transmitted via USB to a Python (2.7.6) process, which displays the input and output signals in real time.
