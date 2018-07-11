@@ -4,38 +4,37 @@ title: "Power supply efficiency calculator"
 date: 2016-06-26 13:17:00 -0600
 categories: electronics
 ---
-** How much power is your charger or adapter using?**
+**How much power is your charger or adapter using?**
 
 The true electrical efficiency of a power supply can only be determined by measuring the average input and output power over a period of time. Lacking time or equipment, one can only guess based on the device label. For example:
 
 INPUT: 100-240 V ~ 50-60 Hz, 0.2A
 
-OUTPUT: 5.0 V <span style="font-size:13.3333px;background-color:transparent">⎓
-550 mA
-<p>
+OUTPUT: 5.0 V ⎓ 550 mA
+
 While the output power can be taken at face value (the device must be able to supply the displayed voltage and current, with a product of 2.75 W),
 input power should not. Even with 100 V mains power, that would imply an average power of 70.7 V * 0.14 A = 10 W (note sine wave root-mean-square), leading to an efficiency of under 28%. In many cases, far better is required.
 
-## <a name="TOC-Efficiency-regulations"></a>Efficiency regulations</h2>
+## <a name="TOC-Efficiency-regulations"></a>Efficiency regulations
 In response to once-abysmal efficiencies, various authorities placed limits on the power a commercial electrical adapter (external power supply) can waste when loaded (when current is drawn from it) and unloaded (when powered but unused, a state of 0% efficiency commonly known as "vampire power"). The [Energy Star levels for external power supplies](https://www.energystar.gov/index.cfm?c=archives.power_supplies) are currently used, with gradually increasing standards numbered with Roman numerals (currently III-VI). Higher-power devices must have greater efficiencies, which limits the total power wasted per device, and are allowed greater no-load power drain.
 
-<span style="font-size:13.3333px;line-height:16.6667px;background-color:transparent">According to the <a href="https://mberka.com/home/goog_755011336" style="font-size:13.3333px;line-height:16.6667px;background-color:transparent">EU </a>[Review Study on Commission Regulation (EC) No. 278/2009, External Power Supplies](https://www.power.com/sites/default/files/greenroom/docs/EPSReviewStudy_DraftFinalReport.pdf), a new standard (VII?) that increases the required efficiency by 2.5% and decreases the maximum no-load power by 2.5% is proposed to take effect in 2019. These are small changes, but the standards mean that most chargers are already 70%+ efficient while charging, with newer models approaching 90% and maximum no-load power below 0.1 W for small chargers.
 
-
+According to the EU [Review Study on Commission Regulation (EC) No. 278/2009, External Power Supplies](https://www.power.com/sites/default/files/greenroom/docs/EPSReviewStudy_DraftFinalReport.pdf), a new standard (VII?) that increases the required efficiency by 2.5% and decreases the maximum no-load power by 2.5% is proposed to take effect in 2019. These are small changes, but the standards mean that most chargers are already 70%+ efficient while charging, with newer models approaching 90% and maximum no-load power below 0.1 W for small chargers.
 
 Current information on US/EU/Canadian regulations is [provided by CUI Inc.](http://www.cui.com/efficiency-standards), an electronics designer.
 
-## <a name="TOC-Understand-your-rating"></a>Understand your rating</h2>
+## <a name="TOC-Understand-your-rating"></a>Understand your rating
 Since few chargers or power supplies list efficiency on the casing, these standards are frequently the only way to approximate it short of electrical testing. The following calculator determines which formulas to apply to find the thresholds the manufacturer had to meet in order to meet the standards. Note that the device may well have better values, especially if it claims the highest certification available at the time of production. It may also have slightly worse ones at some currents: the "average efficiency" that is compared to the thresholds calculated by the formulas is the mean of the efficiencies at 100%, 75%, 50%, and 25% of the rated output current. An above-bar value at one of these points could allow for a below-bar value at another. The closer the threshold is to 100%, the less possible variation there is.
-<h3><a name="TOC-Instructions"></a>Instructions</h3>
+
+### <a name="TOC-Instructions"></a>Instructions
 Look for Roman numerals in a circle to make sure that this calculator applies.
 
 For anything below V, you only need to enter the numerals and the power rating
 
 (the number preceding "W" or "watts"). Later regulations consider more factors - low and high output voltages beginning in V, AC-AC converters and multiple output voltages in VI - and apply different formulas based on these.
 
-<h3><a name="TOC-Calculator"></a>Calculator</h3>
-<script>sites.caja.run('<style>
+### <a name="TOC-Calculator"></a>Calculator
+<style>
   #right-button {
     cursor: pointer;
     width: auto;

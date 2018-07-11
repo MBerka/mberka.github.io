@@ -1,0 +1,52 @@
+---
+layout: post
+title:  "Anbox"
+date:   2018-06-25 18:25:35 -0600
+categories: software
+---
+Though based on Linux, Android has diverged a long way. [Anbox](https://github.com/anbox/anbox) bridges the divide to allow Linux to run Android applications, much like WINE seeks to do for Windows.
+
+<img alt="Anbox home window" border="1" src="/assets/AnboxHomeWindow.jpg" style="margin: 10px auto;" /><br/>
+*Anbox Application Manager home window.*
+
+# Installation
+
+First, repositories and prerequisites:
+{% highlight bash %}
+sudo add-apt-repository ppa:morphis/anbox-support
+sudo apt update
+sudo apt install anbox-modules-dkms
+sudo modprobe ashmem_linux
+sudo modprobe binder_linux
+ls -l /dev/{binder,ashmem}
+{% endhighlight %}
+The last command should return data for the newly-created /dev/binder and /dev/ashmem loadable modules.
+
+To install Anbox proper:
+{% highlight bash %}
+snap install --devmode --edge anbox
+#Instructions had beta instead of edge, but the result was out-of-date
+#  and led to errors that were only resolved with
+#snap refresh --edge --devmode anbox
+{% endhighlight %}
+
+At this point, Anbox is installed and will appear in the applications list as Anbox Application Manager. As it does not come with an internal installation utility, apps must be download as .APK files and added through the Android development tools.
+{% highlight bash %}
+sudo apt install android-tools-adb android-tools-fastboot
+{% endhighlight %}
+
+Anbox must be running for ADB to install apps  on it.
+{% highlight bash %}
+anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
+#(or launch Anbox Application Manager from the GUI; opens a new window with a
+#  few basic apps)
+adb devices
+#Should list an emulator device as attached:
+#List of devices attached
+#emulator-5558	 device
+adb install '/path/to/file.apk'
+#Ideally followed by something like:
+#13622 KB/s (12239487 bytes in 0.877s)
+#Success
+{% endhighlight %}
+Once installed, the app immediately appears in the open Anbox window. It may be inflexible with regards to mouse clicks and window size, and hardware or software dependencies may show up. For non-touchscreen devices, two-finger scrolling comes in handy. The basic applications I have tested so far behaved decently.
