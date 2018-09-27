@@ -18,10 +18,10 @@ email: martin@mberka.com
 description: >- # this means to ignore newlines until "baseurl:"
   Code, architecture, and the joys of interdisciplinary technology.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://mberka.com" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:categories/:title
-linkedin_username: 1mber
-github_username:  MBerka
+linkedin_username: mber
+github_username: MBerka
 
 # Build settings
 markdown: kramdown
