@@ -8,7 +8,8 @@ layout: default
 
   {% for post in site.categories[page.tag] %}
     <li>
-      <a href="{{ post.url }}">{{ post.title }}</a> {{ post.date }}
+      <a href="{{ post.url }}">{{ post.title }}</a> {{ post.date | date: "%-d %B %Y"  }}<br/>
+      {{ post.content | truncatewords: 35 }}
     </li>
   {% endfor %}
 </div>
