@@ -2,7 +2,8 @@
 layout: post
 title:  "Chrome content settings"
 date:   2014-11-30 11:36:00 +0100
-categories:
+permalink: /chrome-content-settings
+categories: software
 ---
 My extensions ([Temporary Content Settings]({% post_url 2015-05-27-temporary-content-settings %}) and [ShowThisImage]({% post_url 2015-05-27-showthisimage %})) to the Chrome browser deal mostly with content settings, specifically with making it possible to set them as strict as possible while maintaining a fair online experience. Google provides a [brief explanation][explanation] - here are the details.
 
