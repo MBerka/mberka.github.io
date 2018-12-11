@@ -22,6 +22,7 @@ url: "https://mberka.com" # the base hostname & protocol for your site, e.g. htt
 permalink: /:categories/:title
 linkedin_username: mber
 github_username: MBerka
+google_analytics: UA-130793376-1
 
 # Build settings
 markdown: kramdown
