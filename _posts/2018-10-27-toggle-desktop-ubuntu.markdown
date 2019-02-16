@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Toggl Desktop on Ununtu 18"
+title:  "Toggl Desktop on Ubuntu 18"
 date:   2018-10-27 11:49:00 -0700
 permalink: /toggl-desktop-ubuntu
 categories: software
@@ -24,7 +24,7 @@ After that, Ubuntu software installed the package without issue:
 
 <img alt="Toggl package in Ubuntu Software" border="1" src="/assets/toggl/TogglInstalled.jpg" style="margin: 10px auto;" /><br/>
 
-# Desktop features: all working! 
+# Desktop features: all working!
 
 The Toggl desktop can then be found in search and added to favorites. On launch, a small window invites the user to sign in:
 
