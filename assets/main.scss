@@ -3,3 +3,28 @@
 ---
 
 @import "minima";
+
+body {
+  background-color: #292929; //$brackground-color
+  color: #fdfdfd; //$text-color
+}
+
+code {
+  color: #000;
+}
+
+a {
+  color: #f30!important; //$brand-color
+}
+
+a:hover {
+  color: #f00!important;
+}
+
+div.footer-col-wrapper, p.post-meta {
+  color: #aaa; //$grey-color
+}
+
+figure, pre {
+  border-radius: 8px;
+}

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Anbox"
+title:  "Anbox: A great Android emulator on Linux"
 date:   2018-06-25 18:25:35 -0600
 categories: software
 ---
