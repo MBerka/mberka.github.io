@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "PlatformIO native unit test coverage"
+title: "PlatformIO native unit tests with code coverage"
 date: 2021-04-08 15:30:20 -0700
-categories: software, electronics
+permalink: software/platformio-unit-test-coverage
+categories: software electronics
 ---
 
 The PlatformIO IDE allows [unit testing with the Unity framework](https://docs.platformio.org/en/latest/plus/unit-testing.html). A [basic project template for unit testing](https://github.com/thingforward/unit-testing-with-platformio) is already available.
@@ -45,7 +46,7 @@ env.AddPostAction(".pio/build/native/program", generateCoverageInfo)
 ```
 *Mostly the [work](https://github.com/platformio/platformio-core/issues/882#issuecomment-682558855) of GitHub user [jcw](https://github.com/jcw), with some cleanup.*
 
-The test suite, stored in the test/ subdirectory and structured like
+The test C++ suite, stored in the test/ subdirectory and structured like:
 
 ```cpp
 void setup() {
@@ -67,7 +68,7 @@ void loop() {
 }
 ```
 
-, can then be run with `pio test -e native`. Output is generated in the cov/ subdirectory of your project, accessible at `cov/index.html`.
+can then be run with `pio test -e native`. Output is generated in the cov/ subdirectory of your project, accessible at `cov/index.html`.
 
 <img alt="Browser view of genhtml report based on lcov output for unit test" src="/assets/lcov-screenshot.png">
 

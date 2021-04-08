@@ -5,24 +5,26 @@
 @import "minima";
 
 body {
-  background-color: #292929; //$brackground-color
-  color: #fdfdfd; //$text-color
+  // background-color: #292929; //$brackground-color
+  // color: #fdfdfd; //$text-color
 }
 
 code {
-  color: #000;
+  // color: #000;
 }
 
 a {
-  color: #f30!important; //$brand-color
+  color: red!important; //$brand-color
 }
 
 a:hover {
-  color: #f00!important;
+  text-shadow: 2px -8px rgba(255, 255, 0, 0.5)!important;
+  font-style: italic;
+  text-decoration: none;
 }
 
 div.footer-col-wrapper, p.post-meta {
-  color: #aaa; //$grey-color
+  // color: #aaa; //$grey-color
 }
 
 figure, pre {
